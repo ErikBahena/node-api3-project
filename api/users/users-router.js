@@ -79,7 +79,11 @@ router.post("/:id/posts", validateUserId, validatePost, (req, res) => {
   // RETURN THE NEWLY CREATED USER POST
   // this needs a middleware to verify user id
   // and another middleware to check that the request body is valid
-  PostsModel.insert(req.body).then((newPost) => {
+
+  PostsModel.insert({
+    text: req.body.text,
+    user_id: req.params.id,
+  }).then((newPost) => {
     res.status(200).json(newPost);
   });
 });
